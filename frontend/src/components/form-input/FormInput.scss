@@ -1,0 +1,71 @@
+.group {
+    position: relative;
+    margin: 5px 0 0 0;
+    i {
+        position: absolute;
+        top: 40%;
+        right: 9%; 
+    }
+    
+    i:hover {
+        color: #A9A9A9;
+        cursor: pointer;
+    }
+}
+
+.pass-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.field {
+    background: none;
+    background-color: transparent;
+    color: black;
+    font-size: 20px;
+    display: block;
+    width: 90%;
+    min-height: 45px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #A760FF;
+    margin: 25px 0;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus ~ .form-input-label {
+        top: 16px;
+        font-size: 16px;
+        color: black;
+    } 
+}
+
+input.error {
+    border-bottom: 2px solid rgb(224, 31, 31);
+}
+
+.form-input-label {
+    color: black;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 40px;
+    transition: 300ms ease all;
+
+    &.shrink {
+        top: 16px;
+        font-size: 16px;
+        color: black;
+        &.error {
+            color: rgb(224, 31, 31);
+        }
+    }
+
+    &.error {
+        color: rgb(224, 31, 31);
+    }
+}

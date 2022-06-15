@@ -28,6 +28,15 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions = new ArrayList<>();
 
+    public Quiz() {
+    }
+
+    public Quiz(String name, Category category, List<Question> questions) {
+        this.name = name;
+        this.category = category;
+        this.questions = questions;
+    }
+
     public Long getId() {
         return id;
     }

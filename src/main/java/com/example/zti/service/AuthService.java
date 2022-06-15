@@ -52,7 +52,8 @@ public class AuthService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtDto(jwt,
+        return ResponseEntity.ok(new JwtDto(userDetails.getId(),
+                jwt,
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));

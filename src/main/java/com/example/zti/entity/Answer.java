@@ -22,6 +22,15 @@ public class Answer {
     @Column(name = "iscorrect")
     private boolean isCorrect;
 
+    public Answer() {
+    }
+
+    public Answer(String answer, Question question, boolean isCorrect) {
+        this.answer = answer;
+        this.question = question;
+        this.isCorrect = isCorrect;
+    }
+
     public Long getId() {
         return id;
     }

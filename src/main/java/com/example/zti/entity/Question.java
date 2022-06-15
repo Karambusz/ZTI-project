@@ -18,6 +18,14 @@ public class Question {
     @OneToOne
     private Category category;
 
+    public Question() {
+    }
+
+    public Question(String question, Category category) {
+        this.question = question;
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }

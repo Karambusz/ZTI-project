@@ -4,18 +4,28 @@ import com.example.zti.dto.question.QuestionDto;
 
 import java.util.List;
 
-public class QuizCreationDto {
+public class QuizDto {
+    private Long id;
     private String quizName;
     private String categoryName;
     private List<QuestionDto> questions;
 
-    public QuizCreationDto() {
+    public QuizDto() {
     }
 
-    public QuizCreationDto(String quizName, String categoryName, List<QuestionDto> questions) {
+    public QuizDto(Long id, String quizName, String categoryName, List<QuestionDto> questions) {
+        this.id = id;
         this.quizName = quizName;
         this.categoryName = categoryName;
         this.questions = questions;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getQuizName() {

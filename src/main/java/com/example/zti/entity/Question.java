@@ -2,6 +2,8 @@ package com.example.zti.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "question")
@@ -17,6 +19,9 @@ public class Question {
     @JoinColumn(name = "category_id")
     @OneToOne
     private Category category;
+
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers  = new ArrayList<>();;
 
     public Question() {
     }
@@ -48,5 +53,13 @@ public class Question {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }

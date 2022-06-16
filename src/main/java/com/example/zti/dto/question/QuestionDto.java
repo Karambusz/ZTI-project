@@ -8,6 +8,14 @@ public class QuestionDto {
     private String question;
     private List<AnswerDto> answers;
 
+    public QuestionDto() {
+    }
+
+    public QuestionDto(String question, List<AnswerDto> answers) {
+        this.question = question;
+        this.answers = answers;
+    }
+
     public String getQuestion() {
         return question;
     }

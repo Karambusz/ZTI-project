@@ -2,11 +2,16 @@ package com.example.zti.controller;
 
 
 import com.example.zti.dto.quiz.QuizCreationDto;
+import com.example.zti.dto.quiz.QuizDto;
 import com.example.zti.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @CrossOrigin
@@ -23,4 +28,19 @@ public class QuizController {
         System.out.println("Get it");
         return quizService.createQuiz(quiz, userId);
     }
+
+    @GetMapping("/quizes")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public List<QuizDto> getQuizzes() {
+        System.out.println("Get it");
+        return quizService.getQuizzes();
+    }
+
+    @GetMapping("/{quizId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public QuizDto getQuiz(@PathVariable("quizId") Long quizId) {
+        System.out.println("Get it");
+        return quizService.getQuiz(quizId);
+    }
+
 }

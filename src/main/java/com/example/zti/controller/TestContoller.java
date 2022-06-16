@@ -6,9 +6,7 @@ import com.example.zti.entity.Question;
 import com.example.zti.repository.AnswerRepository;
 import com.example.zti.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +27,11 @@ public class TestContoller {
 
     @GetMapping("/test-question")
     public List<Question> getQuestions() {
+        return questionRepository.findAll();
+    }
+
+    @GetMapping(path = "/test-post/{groupId}")
+    public List<Question> test(@RequestBody String email, @PathVariable Long groupId) {
         return questionRepository.findAll();
     }
 }

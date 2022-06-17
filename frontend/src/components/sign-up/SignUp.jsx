@@ -196,7 +196,7 @@ const SignUp = () => {
                 />
 				<div className="radio-wrapper">
 					<div>
-						<input id='user-radio' type="radio" name="radio-list" value="user" onChange={(e) => handleChange(e, setRole)} checked/>
+						<input id='user-radio' type="radio" name="radio-list" value="user" onChange={(e) => handleChange(e, setRole)}/>
 						<label htmlFor="user-radio">Użytkownik</label>
 					</div>
 					<div>

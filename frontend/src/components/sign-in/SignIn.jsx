@@ -3,7 +3,7 @@ import "./SignIn.scss";
 import { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from './../../redux/user/user-action';
-// import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import CustomButton from './../button';
 import Spinner from '../spinner';
@@ -16,8 +16,9 @@ const SignIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {user, isLogged} = useSelector(state => state);
+    const {user, isLogged} = useSelector(state => state['user']);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [errorEmail, setErrorEmail] = useState({errorState: false, messagge: " (Musi być w postaci *@*.*)"});
     const [errorPassword, setErrorPassword] = useState({errorState: false, messagge: " (Musi zawierać co najmniej 6 znaków)"});
@@ -43,6 +44,7 @@ const SignIn = () => {
 
     const handleChange = (event, setter) => {
         const {value} = event.target;
+        console.log(isLogged)
         setter(value);
     }
 
@@ -62,9 +64,13 @@ const SignIn = () => {
         if (validateFields()) {
             postData(`${process.env.REACT_APP_API_ROOT_URL}/auth/signin`, JSON.stringify(data))
             .then(res => {
-				if (res.status === 200 &&!user && !isLogged) {
+                console.log(res)
+                console.log(res.status)
+				if (res && res.id && !user && !isLogged) {
+                    console.log("inside login");
 					dispatch(setUser(res))
 					localStorage.setItem("user", JSON.stringify(res));
+                    console.log("Log in!")
 				}
             })
             .catch(e => {
@@ -122,7 +128,7 @@ const SignIn = () => {
                 {lastElement}
             </form>
             {modal}
-            {/* {isLogged ? <Redirect to="/"/> : null} */}
+            {isLogged ? navigate("/") : null}
         </div>
     )
 }

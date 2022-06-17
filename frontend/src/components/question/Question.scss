@@ -1,0 +1,81 @@
+.question-wrapper {
+	display: flex;
+	justify-content: space-between;
+	.group {
+		width: 100%;
+	}
+	.field {
+		width: 100%;
+		&:focus ~ .form-input-label {
+			top: 16px;
+		} 
+	}
+	.form-input-label {
+		top: 40px;
+	
+		&.shrink {
+			top: 16px;
+		}
+	}
+
+	.radio-wrapper {
+		width: 30%;
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		label {
+			margin-top: 20px;
+			margin-left: 5px;
+		}
+
+		input[type='radio']:after {
+			width: 15px;
+			height: 15px;
+			border-radius: 15px;
+			top: -4px;
+			left: -1px;
+			position: relative;
+			background-color: #d1d3d1;
+			content: '';
+			display: inline-block;
+			visibility: visible;
+			border: 2px solid white;
+		}
+	
+		input[type='radio']:checked:after {
+			width: 15px;
+			height: 15px;
+			border-radius: 15px;
+			top: -4px;
+			left: -1px;
+			position: relative;
+			background-color: #CA82FF;
+			content: '';
+			display: inline-block;
+			visibility: visible;
+			border: 2px solid white;
+		}
+	}
+
+
+}
+
+.question-field-addition, .question-field-deletion {
+	margin-right: 5px;
+	margin-top: 5px;
+	width: 5%;
+	height: 30px;
+	font-size: 12px;
+	background-color: #CA82FF;
+}
+
+.question-field-deletion {
+	margin-right: 0;
+}
+
+
+.quiz-wrapper .quiz-creation-wrapper #create-quiz-form .question-wrapper .field {
+	width: 91%;
+}

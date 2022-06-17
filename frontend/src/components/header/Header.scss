@@ -1,14 +1,22 @@
 .header {
 	font-size: 25px;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: center;
+  
+    .logo {
+		background-color: transparent;
+		padding-top: 10px;
+		padding-left: 60px;
+		height: 80px;
+		width: 80px;
+		display: inline;
+    }
 	.header-list {
 		display: flex;
 		justify-content: flex-end;
-		max-width: 50%;
 		list-style: none;
-		margin: 0;
-		width: 100%;		
+		margin: 0;		
 	
 		.header-list-item {
 			display: inline-block;
@@ -35,6 +43,9 @@
 				transform-origin: bottom right;
 				transition: transform 0.25s ease-out;
 			}
+		}
+		.active {
+			color: #CA82FF;
 		}
 	}
 }

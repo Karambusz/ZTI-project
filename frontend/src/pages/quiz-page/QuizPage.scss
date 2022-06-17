@@ -1,0 +1,22 @@
+.questions-wrapper {
+	margin-top: 20px;
+
+	.question-wrapper {
+		padding: 10px;
+		display: block;
+		width: 700px;
+		margin: 0 auto;
+		margin-bottom: 10px;
+		background-color: rgb(202, 130, 255, 0.4);
+		box-shadow:15px 15px 20px rgb(202, 130, 255, 0.2);
+		border: 2px solid #fff;
+		border-radius: 1rem;
+
+		&:hover {
+			box-shadow: 15px 15px 20px rgba(255,255,255,.6);
+		}
+	}
+	.spinner-wrapper {
+        grid-column-end: 3;
+	}
+}

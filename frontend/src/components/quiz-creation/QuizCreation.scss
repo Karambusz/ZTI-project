@@ -1,0 +1,102 @@
+
+
+.quiz-wrapper {
+	margin-top: 30px;
+    display: flex;
+	justify-content: space-between;
+
+
+	.quiz-creation-wrapper {
+		width: 700px;
+
+		#create-quiz-form {
+			display: grid;
+			grid-template-columns: 1fr;
+
+			.field {
+				width: 70%;
+				margin: 25px 0 0px 0;
+			}
+
+			.category-text {
+				padding-left: 5px;
+			}
+		}
+
+		.questions-header {
+			margin-top: 10px;
+		}
+
+		.btn.submit {
+			background-color: rgb(202, 130, 255);
+			width: 25%;
+			margin-top: 10px;
+			height: 50px;
+		}
+
+		.spinner-wrapper {
+			width: 20%;
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+
+
+		.react-select__control {
+			background: none;
+			background-color: transparent;
+			color: black;
+			font-size: 18px;
+			display: block;
+			width: 71%;
+			min-height: 45px;
+			border: none;
+			border-radius: 0;
+			border-bottom: 2px solid #CA82FF;;
+			margin: 25px 0;
+			&.error {
+				border-bottom: 2px solid rgb(224, 31, 31);
+			}
+		}
+
+		.react-select__value-container {
+			padding: 1px 2px;
+		}
+
+		.react-select__menu {
+			margin-top: -23px;
+			width: 71%;
+		}
+
+		.react-select__placeholder {
+			color: black;
+			font-size: 20px;
+			&.error {
+				color: rgb(224, 31, 31);
+			}
+
+		}
+
+		.react-select__indicators { 
+			display: none; 
+		}
+
+		.question-addition {
+			margin-top: 5px;
+			width: 25%;
+			height: 30px;
+			font-size: 12px;
+			background-color: #CA82FF;
+		}
+	}
+
+	.quiz-info {
+		width: 500px;
+	}
+
+}
+
+.modal {
+	.h2 {
+		background: #000;
+	}	
+}

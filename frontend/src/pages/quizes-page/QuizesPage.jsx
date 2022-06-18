@@ -1,7 +1,7 @@
 import './QuizesPage.scss';
 import QuizCard from '../../components/quiz-card/QuizCard';
 import randomColor from "randomcolor";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../../components/spinner';
 import {getQuizzes} from "./../../redux/quiz/quiz-action";
@@ -42,7 +42,7 @@ const QuizesPage = () => {
 		return categoryColor;
 	}
 
-	const generateQuizCards = (quizzes) => {
+	const generateQuizCards = useCallback((quizzes) => {
 		if (quizzes === null) {
 			return null;
 		}
@@ -67,17 +67,15 @@ const QuizesPage = () => {
 				</Link>
 			)
 		})
-	}
-
-	const items = quizLoading ?                 
-    <div className="spinner-wrapper">
-        <Spinner/>
-    </div> :
-	generateQuizCards(quizzes)
+	}, [])
 
 	return (
 		<div className="quizes-wrapper">
-			{items}
+			{quizLoading ?                 
+				<div className="spinner-wrapper">
+					<Spinner/>
+				</div> :
+				generateQuizCards(quizzes)}
 		</div>
 	)
 }

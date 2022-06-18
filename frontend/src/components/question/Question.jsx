@@ -1,5 +1,5 @@
 import './Question.scss';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import FormInput from '../form-input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -60,9 +60,6 @@ const Question = ({questionIndex, questionText, answers, answerSetter, questionT
 
 	const handleAnswerChange = (event, arganswers, index, propertyName) => {
 		let {value} = event.target;
-		// if (propertyName === "isCorrect") {
-		// 	value = value === "true" ? true : false; 
-		// }
 		let items = [...arganswers];
 		let item = {...items[index]};
 		item[propertyName] = value;

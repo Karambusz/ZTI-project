@@ -15,10 +15,7 @@ const QuizCard = (props) => {
 				{props.quizname !== '' ? props.quizname : "Nazwa quizu"}
 				</Typography>
 				<Typography variant="h5" component="div">
-				Kategoria
-				</Typography>
-				<Typography sx={{ mb: 1.5 }} color="text.secondary">
-				{props.categoryName != null && props.categoryName['value'] ? props.categoryName['value'] : props.categoryName}
+					{props.categoryName != null && props.categoryName['value'] ? props.categoryName['value'] : props.categoryName}
 				</Typography>
 				<Typography variant="body2">
 				Ilość pytań: {props.questionCount}

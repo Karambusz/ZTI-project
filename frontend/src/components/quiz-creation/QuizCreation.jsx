@@ -93,7 +93,7 @@ const QuizCreation = () => {
 		setQuestionText(copyOftext);
 	}
 
-	const convertAnswersAndQuestionRequestDto = () => {
+	const convertAnswersToQuestionRequestDto = () => {
 		return numberOfQuestions.map((element, index) => {
 			return {
 				question: questionText[index],
@@ -124,11 +124,10 @@ const QuizCreation = () => {
 
 		const quizCategory = categoryName !== '' ? categoryName : category['value'];
 
-
         const data = {
             quizName: quizname,
 		    categoryName: quizCategory,
-			questions: convertAnswersAndQuestionRequestDto()
+			questions: convertAnswersToQuestionRequestDto()
 				
         }
 

@@ -4,6 +4,7 @@ import com.example.zti.dto.answer.AnswerDto;
 import com.example.zti.dto.question.QuestionDto;
 import com.example.zti.dto.quiz.QuizCreationDto;
 import com.example.zti.dto.quiz.QuizDto;
+import com.example.zti.dto.response.JwtDto;
 import com.example.zti.dto.response.MessageDto;
 import com.example.zti.entity.*;
 import com.example.zti.repository.AnswerRepository;
@@ -67,9 +68,27 @@ public class QuizService {
         return quizResponse;
     }
 
-    public QuizDto getQuiz(Long quizId) {
+    public ResponseEntity<?>  getQuiz(Long quizId) {
         Quiz quiz = quizRepository.findById(quizId).orElse(null);
-        return createQuizDto(quiz);
+        if (quiz == null) {
+        return ResponseEntity
+                    .badRequest()
+                    .body(new MessageDto("Error: Quiz doest not exist!", 400));
+        }
+        return ResponseEntity.ok(quiz);
+    }
+
+    public ResponseEntity<?> addQuizToHistory(Long quizId, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Quiz quiz = quizRepository.findById(quizId).orElse(null);
+        List<Quiz> userQuizzes = user.getQuizez();
+        if (userQuizzes.stream().anyMatch(userQuiz -> quiz.getId().equals(quizId))) {
+            return ResponseEntity.ok(new MessageDto("User already finished this quiz!", 204));
+        }
+        userQuizzes.add(quiz);
+        user.setQuizez(userQuizzes);
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 
 
@@ -81,7 +100,7 @@ public class QuizService {
                     List<AnswerDto> answers = question.getAnswers().stream()
                             .map(answer -> new AnswerDto(answer.getId(), answer.getAnswer(), answer.isCorrect()))
                             .collect(Collectors.toList());
-                    return new QuestionDto(question.getQuestion(), answers);
+                    return new QuestionDto(question.getId(), question.getQuestion(), answers);
                 }).collect(Collectors.toList());
         return new QuizDto(quiz.getId(), quizName, categoryName, questions);
     }

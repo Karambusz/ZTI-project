@@ -1,5 +1,7 @@
 package com.example.zti.dto.response;
 
+import com.example.zti.entity.Quiz;
+
 import java.util.List;
 
 public class JwtDto {
@@ -9,13 +11,15 @@ public class JwtDto {
     private String username;
     private String email;
     private List<String> roles;
+    private List<Quiz> quizez;
 
-    public JwtDto(Long id, String accessToken, String username, String email, List<String> roles) {
+    public JwtDto(Long id, String accessToken, String username, String email, List<String> roles, List<Quiz> quizez) {
         this.id = id;
         this.token = accessToken;
         this.username = username;
         this.email = email;
         this.roles = roles;
+        this.quizez = quizez;
     }
 
     public String getAccessToken() {
@@ -60,5 +64,13 @@ public class JwtDto {
 
     public List<String> getRoles() {
         return roles;
+    }
+
+    public List<Quiz> getQuizez() {
+        return quizez;
+    }
+
+    public void setQuizez(List<Quiz> quizez) {
+        this.quizez = quizez;
     }
 }

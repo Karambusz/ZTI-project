@@ -56,7 +56,8 @@ public class AuthService {
                 jwt,
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles));
+                roles,
+                userDetails.getQuizez()));
     }
 
     public ResponseEntity<?> createNewUser(UserSignUpDto signUpUser) {

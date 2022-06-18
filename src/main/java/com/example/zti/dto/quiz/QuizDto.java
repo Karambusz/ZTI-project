@@ -1,9 +1,10 @@
 package com.example.zti.dto.quiz;
 
 import com.example.zti.dto.question.QuestionDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuizDto {
     private Long id;
     private String quizName;

@@ -1,16 +1,18 @@
 import './QuizPage.scss';
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faXmark, faSmile, faSadCry } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback } from 'react';
 import { useHttp } from '../../hooks/http.hooks';
 import { useSelector, useDispatch } from 'react-redux';
 import {getQuiz} from "./../../redux/quiz/quiz-action";
+import { updateUserQuizzes } from '../../redux/user/user-action';
 import { createModalContent, closeModal } from '../../services/services';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
+import Alert from '@mui/material/Alert';
 import Spinner from '../../components/spinner';
 import Modal from '../../components/modal';
 import CustomButton from '../../components/button';
@@ -38,6 +40,9 @@ const QuizPage = () => {
 	const [isFinished, setIsFinished] = useState(false);
 	const [open, setOpen] = useState(false);
 
+	const [userQuiz, setUserQuiz] = useState(false);
+	const [adminQuiz, setAdminQuiz] = useState(false);
+
 	const [isModal, setIsModal] = useState(false);
     const [modalError, setModalError] = useState(false);
     const [modalContent, setModalContent] = useState({});
@@ -50,9 +55,9 @@ const QuizPage = () => {
 		request(`${process.env.REACT_APP_API_ROOT_URL}/quiz/${quizId}`, 'GET', null, user.accessToken)
 			.then(res => {
 				if (res.status !== 400) {
-					console.log(res);
 					dispatch(getQuiz(res));
 					createDefaultAnswersState(res);
+					getUsersQuizzesAndRole(quizId);
 					setQuizLoading(false);
 				} else {
 					navigate("/");
@@ -92,7 +97,6 @@ const QuizPage = () => {
 		if (quiz === null) {
 			return null
 		} else {
-			// console.log("render " + quiz);
 			return quiz['questions'].map((item, idx) => {
 				const {question, answers} = item;
 				return (
@@ -101,7 +105,7 @@ const QuizPage = () => {
 							{question}
 						</Typography>
 						<FormGroup>
-							{isFinished ? answers.map((answer, index) => {
+							{isFinished  ? answers.map((answer, index) => {
 								const answerCorrect = <FontAwesomeIcon icon={faCheck} />;
 								const answerFalse = <FontAwesomeIcon icon={faXmark} />;
 								const customLabel = answer['correct'] ? (
@@ -122,6 +126,11 @@ const QuizPage = () => {
 								)
 							}) :
 							answers.map((answer, index) => {
+								// if (user.roles[0] === "ROLE_ADMIN") {
+								// 	return (
+								// 		<FormControlLabel key={answer['id']} control={<Checkbox disabled />} label={answer.answer} />
+								// 	)
+								// }
 								return (
 									<FormControlLabel key={answer['id']} control={<Checkbox onClick={() => handleAnswers(idx, index, quizAnswers)} />} label={answer.answer} />
 								)
@@ -161,7 +170,6 @@ const QuizPage = () => {
 			if (userScoreForQuestion < 0)
 				userScoreForQuestion = 0;
 			userScore += userScoreForQuestion / correctAnswerNumbers.get(item['questionId']);
-			console.log(userScore);
 		});
 		return userScore;
 	}
@@ -184,6 +192,15 @@ const QuizPage = () => {
 		}
 	}
 
+	const getUsersQuizzesAndRole = (quizId) => {
+		if (user.roles[0] === "ROLE_ADMIN" && user.quizez.some(quiz => quiz.id == quizId)) {
+			setAdminQuiz(true);
+			setIsFinished(true);
+		} else if (user.roles[0] === "ROLE_USER" && user.quizez.some(quiz => quiz.id == quizId)) {
+			setUserQuiz(true);
+		}
+	}
+
 	const handleAnswers = useCallback((questionIndex, answerIndex, quizAnswers) => {
 		let quizAnswersCopy = [...quizAnswers];
 		let quizAnswersItemCopy = {...quizAnswers[questionIndex]};
@@ -200,9 +217,14 @@ const QuizPage = () => {
 		request(`${process.env.REACT_APP_API_ROOT_URL}/quiz/${user.id}/${quizId}`, 'POST', null, user.accessToken)
 		.then(res => {
 			if (res) {
-				console.log(res);
 				const messages = [];
 				messages.push(`Your final score is ${quizScore} %`); 
+				if (res['status'] !== 204) {
+					dispatch(updateUserQuizzes(res['quizez']));
+					let copyOfUser = JSON.parse(localStorage.getItem("user"));
+					copyOfUser['quizez'] = res['quizez'];
+					localStorage.setItem("user", JSON.stringify(copyOfUser));
+				}
 				setModalContent(createModalContent("You finish the quiz!", messages));
 				setIsModal(true);
 				setModalError(false);
@@ -213,6 +235,18 @@ const QuizPage = () => {
 		.catch(e => console.log(e))
 	}
 
+	const renderInformationAlert = (closeFunction, message, icon) => {
+		return (
+			<Alert
+			onClose={() => closeFunction(false)} 
+			sx={{ width: '60%', margin: '0 auto', marginBottom: '20px' }} 
+			variant="filled" 
+			severity="info">
+				{message} <FontAwesomeIcon icon={icon} />
+			</Alert>
+		)
+	}
+
 	const modal = isModal ? <Modal 
 		modalContent = {modalContent}
 		modalError={modalError}
@@ -220,6 +254,10 @@ const QuizPage = () => {
 	
 	return (
 		<div className="questions-wrapper">
+			{userQuiz ? renderInformationAlert(setUserQuiz, "Zdałeś już ten quiz, ale możesz spróbować ponownie", faSmile) : null}
+			{adminQuiz ? renderInformationAlert(setAdminQuiz, "Jesteś autorem tego quizu, więc możesz zobaczyć odpowiedzi ", faSmile) : null}
+			{!adminQuiz && user.roles[0] === "ROLE_ADMIN" ? renderInformationAlert(setAdminQuiz, "Nie jesteś autorem tego quizu, więc nie możesz zobaczyć odpowiedzi ", faSadCry) : null}
+
 			<form onSubmit={handleSubmit}>
 				{quizLoading ?     <div className="spinner-wrapper">
         							<Spinner/>
@@ -229,7 +267,7 @@ const QuizPage = () => {
     								</div> : 
 				<CustomButton
 					type="submit"
-					disabled={isFinished}
+					disabled={isFinished || user.roles[0] === "ROLE_ADMIN"}
 					additionalClass="submit-quiz">
 					Wyślij quiz
 				</CustomButton>}

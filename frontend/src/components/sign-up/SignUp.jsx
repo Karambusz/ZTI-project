@@ -75,7 +75,6 @@ const SignUp = () => {
 
     const handleChange = (event, setter) => {
         const {value} = event.target;
-		console.log(value);
         setter(value);
     }
 
@@ -86,7 +85,6 @@ const SignUp = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-		console.log("Submitted");
         setLoading(true);
 
 
@@ -100,7 +98,6 @@ const SignUp = () => {
         if (validateFields()) {
             postData(`${process.env.REACT_APP_API_ROOT_URL}/auth/signup`, JSON.stringify(data))
             .then(res => {
-				console.log(res.status);
                 const {status} = res;
                 if (status === 200) {
                     const messages = [];

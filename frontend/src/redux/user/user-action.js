@@ -7,6 +7,13 @@ export const setUser = (user) => {
     }
 }
 
+export const updateUserQuizzes = (quizzes) => {
+    return {
+        type: UserActionTypes.UPDATE_USER_QUIZZES,
+        payload: quizzes
+    }
+}
+
 export const logout = () => {
     return {
         type: UserActionTypes.LOGOUT,

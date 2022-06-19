@@ -19,6 +19,14 @@ const userReducer = (state = initialState, action) => {
                 isLogged: true,
                 user: action.payload
             }
+        case UserActionTypes.UPDATE_USER_QUIZZES:
+            let copyOfUser = {...state['user']}
+            copyOfUser['quizez'] = action.payload
+            return {
+                ...state,
+                isLogged: true,
+                user: copyOfUser
+            }
         case UserActionTypes.LOGOUT: 
             return {
                 ...state,

@@ -44,7 +44,6 @@ const SignIn = () => {
 
     const handleChange = (event, setter) => {
         const {value} = event.target;
-        console.log(isLogged)
         setter(value);
     }
 
@@ -64,13 +63,9 @@ const SignIn = () => {
         if (validateFields()) {
             postData(`${process.env.REACT_APP_API_ROOT_URL}/auth/signin`, JSON.stringify(data))
             .then(res => {
-                console.log(res)
-                console.log(res.status)
 				if (res && res.id && !user && !isLogged) {
-                    console.log("inside login");
 					dispatch(setUser(res))
 					localStorage.setItem("user", JSON.stringify(res));
-                    console.log("Log in!")
 				}
             })
             .catch(e => {

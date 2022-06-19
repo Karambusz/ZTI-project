@@ -7,7 +7,6 @@ const QuizCard = (props) => {
 	const CardStyle = {
 		backgroundColor: props.color
 	}
-	// console.log(props);
 	return(
 		<Card style={CardStyle} sx={{ minWidth: 275 }}>
 			<CardContent>

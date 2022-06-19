@@ -20,7 +20,6 @@ const QuizesPage = () => {
 		setQuizLoading(true);
 		request(`${process.env.REACT_APP_API_ROOT_URL}/quiz/quizes`, 'GET', null, user.accessToken)
 			.then(res => {
-				console.log(res);
 				dispatch(getQuizzes(res));
 				setQuizLoading(false);
 			})

@@ -35,7 +35,6 @@ const QuizCreation = () => {
     const [categories, setCategories] = useState([]);
 
 	useEffect(() => {
-		console.log("useEffect category fetching");
         getData(`${process.env.REACT_APP_API_ROOT_URL}/category`)
             .then(categories => {
 				setCategories(categories);
@@ -59,7 +58,6 @@ const QuizCreation = () => {
 
 	const handleChange = (event, setter) => {
         const {value} = event.target;
-		console.log(value);
         setter(value);
     }
 
@@ -119,7 +117,6 @@ const QuizCreation = () => {
 
 	const handleSubmit = (event) => {
         event.preventDefault();
-		console.log("Submitted");
         setLoading(true);
 
 		const quizCategory = categoryName !== '' ? categoryName : category['value'];
@@ -131,12 +128,8 @@ const QuizCreation = () => {
 				
         }
 
-		console.log(JSON.stringify(data));
-
 		fetchWithAuthorization(`${process.env.REACT_APP_API_ROOT_URL}/quiz/${user['id']}/create`, JSON.stringify(data), user.accessToken, "POST")
 		.then(res => {
-			console.log(res);
-			console.log(res.status);
 			const {status} = res;
 			if (status === 200) {
 				const messages = [];

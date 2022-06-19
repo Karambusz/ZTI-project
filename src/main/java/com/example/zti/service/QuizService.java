@@ -51,7 +51,7 @@ public class QuizService {
             questionsForQuiz.add(entry.getKey());
             List<Answer> answersToAdd = entry.getValue()
                     .stream()
-                    .map(dto -> new Answer(dto.getAnswer(), entry.getKey(), dto.getCorrect()))
+                    .map(dto -> new Answer(dto.getAnswer(), entry.getKey(), dto.getIsCorrect()))
                     .collect(Collectors.toList());
             answerRepository.saveAll(answersToAdd);
         }
@@ -82,7 +82,7 @@ public class QuizService {
         User user = userRepository.findById(userId).orElseThrow();
         Quiz quiz = quizRepository.findById(quizId).orElse(null);
         List<Quiz> userQuizzes = user.getQuizez();
-        if (userQuizzes.stream().anyMatch(userQuiz -> quiz.getId().equals(quizId))) {
+        if (userQuizzes.stream().anyMatch(userQuiz -> userQuiz.getId().equals(quizId))) {
             return ResponseEntity.ok(new MessageDto("User already finished this quiz!", 204));
         }
         userQuizzes.add(quiz);

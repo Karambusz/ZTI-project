@@ -32,7 +32,7 @@ public class AnswerDto {
         this.answer = answer;
     }
 
-    public boolean getCorrect() {
+    public boolean getIsCorrect() {
         return isCorrect;
     }
 

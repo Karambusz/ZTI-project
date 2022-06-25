@@ -1,7 +1,5 @@
 package com.example.zti.dto.answer;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 public class AnswerDto {
     private Long id;
     private String answer;

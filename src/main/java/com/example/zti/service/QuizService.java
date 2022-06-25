@@ -4,7 +4,6 @@ import com.example.zti.dto.answer.AnswerDto;
 import com.example.zti.dto.question.QuestionDto;
 import com.example.zti.dto.quiz.QuizCreationDto;
 import com.example.zti.dto.quiz.QuizDto;
-import com.example.zti.dto.response.JwtDto;
 import com.example.zti.dto.response.MessageDto;
 import com.example.zti.entity.*;
 import com.example.zti.repository.AnswerRepository;

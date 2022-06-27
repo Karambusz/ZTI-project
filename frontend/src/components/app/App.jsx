@@ -1,5 +1,5 @@
 import './App.scss';
-import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import SignUpPage from "../../pages/sign-up-page";

@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         bearerFormat = "JWT",
         scheme = "bearer"
 )
-// jwt for swagger - eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjJAZ21haWwuY29tIiwiaWF0IjoxNjU2MTk1MTg1LCJleHAiOjE2NTg3ODcxODV9.-e8QIYP_UHFToIXJUExvJwuAUsnliZLEMu9nf24FmRUfR4NliT_UkkY3sX4Vouh6KqTmqH5444bp3THlNlla1g
+// jwt for swagger - eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NTYzNTQ1NTYsImV4cCI6MTY2NDEzMDU1Nn0.l9iEMXC-1haasLPQqpYDMC5_YkKtKt8AS6MrRiy8lmQrtwXjWsXmRHUcEL_3P1-xJEVHPY1rxDDh-X9NoeuEIA
 @OpenAPIDefinition(info = @Info(title = "Quizzes ZTI", version = "1.0", description = "Projekt dla przedmiotu ZTI"))
 public class ZtiApplication {
 
